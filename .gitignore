@@ -1,0 +1,49 @@
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Node/frontend
+node_modules/
+dist/
+build/
+.vite/
+
+# Generated data/results
+*.csv
+*.log
+backtest_results/
+outputs/
+logs/
+runs/
+checkpoints/
+models/
+*.pt
+*.pth
+*.pkl
+*.joblib
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local media/artifacts
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+.git_nested_backup/
+spinningup_src/docs/images/
