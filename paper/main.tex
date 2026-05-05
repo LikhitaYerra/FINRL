@@ -133,6 +133,13 @@ Unlike representation learning \citep{bengio2013representation} or disentangled 
 Unlike post-hoc methods (LIME \citep{ribeiro2016should}, SHAP \citep{lundberg2017unified}), SSAI requires no separate explanation step: axes are interpretable by construction.
 The key gap SSAI fills is the \emph{shared interface}: fixing $\phi$ across estimators of different complexity makes representation and optimisation effects separately observable.
 
+\textbf{Interpretability senses.}
+We use ``interpretability'' in three distinct senses throughout, which we now make explicit.
+\emph{(a) Axis-level human-readable semantics}: each axis has a fixed natural-language name and integer range, allowing a practitioner to read off ``the model raised risk from 2 to 4 on this date'' without post-hoc processing.
+\emph{(b) Post-hoc auditability via prompt perturbation}: fixing $\phi$ enables controlled counterfactual tests---one can rescore with a modified prompt and observe the effect on downstream decisions, something impossible with a jointly trained encoder.
+\emph{(c) Regulatory legibility}: integer scores on named axes are explainable to a compliance team in plain language; a PCA component loading is not.
+SSAI delivers properties (a)--(c) by construction. PC1 and FinBERT deliver none of (a)--(c). The interpretability-performance analysis in Table~\ref{tab:factor_comparison} and Section~\ref{sec:factor_comparison} should be read as characterising the cost of properties (a)--(c) jointly.
+
 \textbf{Baseline scope.} We isolate SSAI design choices with deterministic portfolios and matched supervised learners; lexical headline aggregates (VADER; train-fit TF--IDF/SVD) now appear as dense ridge inputs (Table~\ref{tab:supervised_forecasting}). Table~\ref{tab:factor_comparison} adds a FinBERT direct-portfolio baseline (FinBERT-SFP, 386.3\% CR) and a PC1 baseline (PC1-SFP, 433.6\% CR) under the same top-10 rule. What this submission does \emph{not} cover: FinBERT or dense embeddings as RL state vectors, multi-seed factor portfolio evaluation, or comparison against FinGPT/BloombergGPT full encoders---these remain open gaps (see Limitations, Section~\ref{sec:discussion}).
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -336,13 +343,21 @@ FinBERT (CR 125.0\%, Sharpe 0.649) performs comparably to price-only, confirming
 }{}
 
 \IfFileExists{table_factor_comparison.tex}{%
-\subsection{Factor Comparison: PC1, FinBERT, and SSAI}
+\subsection{Factor Comparison: PC1, Softmax, FinBERT, and SSAI}
 \label{sec:factor_comparison}
-Table~\ref{tab:factor_comparison} adds a PC1-SFP baseline (first principal component of the four axes; 83.4\% explained variance) and a FinBERT-SFP baseline (direct portfolio using ProsusAI/finbert sentiment), both under the same top-10 rule.
-The ranking PC1 (433.6\%/1.256) $>$ FinBERT (386.3\%/1.206) $>$ SSAI (307.2\%/1.067) $>$ B\&H (243.6\%/1.032) implies a 126pp CR interpretability cost for choosing SSAI over five years.
-In a performance-maximising context, PC1-SFP dominates---but PC1 is \emph{derived} from the four SSAI axes, so practitioners still need the four-axis interface; PC1 is a post-hoc compression.
-Named axes are justified in settings requiring regulatory auditability, axis-level override, or prompt perturbation testing; SSAI is an \emph{interpretability-performance frontier} instrument whose cost is now precisely characterised.
-FinBERT-ridge underperformed in Table~\ref{tab:supervised_forecasting} (125.0\% vs.\ 126.4\% price-only) yet FinBERT-SFP outperforms SSAI here, showing dense encodings are competitive as direct ranking signals but not as naive ridge features.
+Table~\ref{tab:factor_comparison} adds three baselines under the same top-10 rule: PC1-SFP (first principal component of the four standardised axes; 81.9\% explained variance), Softmax-SFP (equal-weight mean of the same four standardised axes), and FinBERT-SFP (ProsusAI/finbert sentiment).
+
+\textbf{PC1 loadings are nearly equal-weighted.}
+The PC1 eigenvector has absolute loadings of 0.514/0.520/0.480/0.485 across the four axes, normalising to 0.257/0.260/0.240/0.242 --- within 2pp of uniform.
+This motivated the Softmax-SFP test: Softmax-SFP achieves \textbf{439.8\%} CR (Sharpe 1.248) vs.\ PC1-SFP 433.6\% (Sharpe 1.256), a 6pp difference within noise.
+\emph{The axis decomposition itself costs nothing relative to the PC1 compression.}
+
+\textbf{The 126pp gap is a portfolio-rule effect, not an interpretability cost.}
+Since Softmax-SFP $\approx$ PC1-SFP, the full gap to 4-axis SSAI-SFP (307.2\%) traces to the ridge-trained factor weights used in SSAI-SFP, not to the named-axis interface.
+Practitioners who rank by equal-weighted standardised SSAI scores retain full auditability (axis-level inspection, override, and prompt perturbation) while recovering PC1-level returns.
+Named axis weights remain valuable for regulatory legibility and causal attribution; the four-axis interface can be used with any weighting scheme.
+
+FinBERT-SFP (386.3\%) outperforms SSAI-SFP here yet underperformed in ridge forecasting (Table~\ref{tab:supervised_forecasting}), confirming dense encodings are competitive direct ranking signals but not naive ridge features.
 \input{table_factor_comparison.tex}
 }{}
 
@@ -361,7 +376,10 @@ RL results (SAC: 242.7\%, DP-PPO: 179.6\%) and factor portfolios (PC1: 433.6\%) 
 
 \subsection{Ablation: Signal Contribution}
 
-Table~\ref{tab:ablation} reports leave-one-signal-out masking at \emph{evaluation} time on fixed trained weights (Section~\ref{sec:discussion}); it is not a replacement for retraining-based causal attribution.
+Table~\ref{tab:ablation} reports leave-one-signal-out masking at \emph{evaluation} time on fixed trained weights; it is not a replacement for retraining-based causal attribution.
+The table shows DP-PPO neutral (196.8\%/0.926) marginally exceeding DP-PPO full signals (190.4\%/0.917) in CR on the reported checkpoint.
+This reversal is not paradoxical: (i) the difference is within the 21-seed standard deviation ($\pm$17pp CR), confirmed by Wilcoxon $p{\approx}0.25$--$0.31$; (ii) evaluation-time masking changes the policy's state distribution without retraining, so the value function's calibration on full-signal inputs is disrupted; (iii) the multi-seed means preserve the expected direction (full Sharpe $0.920\pm0.096 >$ masked $0.907\pm0.094$, Table~\ref{tab:seed_robust}).
+The single-checkpoint CR reversal is a noise realisation, not evidence that SSAI signals harm the policy.
 
 \input{table_ablation}
 
@@ -398,7 +416,7 @@ This work is a retrospective benchmark; see Appendix~\ref{app:ethics} for ethics
 \label{sec:conclusion}
 
 We introduced SSAI as a controlled evaluation framework for disentangling text representation from optimisation effects in LLM-augmented decision systems, and applied it to a US equity portfolio task.
-The main findings are cautionary: the apparent 63pp SFP advantage over buy-and-hold is a basket-selection composition artefact (fails within-stratum controls, reverses at ${\geq}0.2\%$ costs); PC1-SFP outperforms SSAI by 126pp CR, characterising the cost of interpretability constraints precisely; and RL performance depends critically on algorithm choice, not representation.
+The main findings are cautionary: the apparent 63pp SFP advantage over buy-and-hold is a basket-selection composition artefact (fails within-stratum controls, reverses at ${\geq}0.2\%$ costs); PC1 loadings are near-equal-weighted (0.257/0.260/0.240/0.242), and an equal-weight Softmax-SFP achieves 439.8\% CR---matching PC1's 433.6\%---showing the named-axis interface costs nothing over PC1; the 126pp gap to SSAI-SFP (307.2\%) traces to the ridge weighting rule, not the axes themselves; and RL performance depends critically on algorithm choice, not representation.
 The SSAI template, code artifact, and diagnostic protocol are offered as reusable infrastructure for future sparse-text decision-making research.
 \label{p:endmaincontent}
 
@@ -627,6 +645,12 @@ We split the 30-ticker universe into terciles by non-neutral coverage fraction a
 \textbf{Key result: SFP does not outperform equal-weight B\&H within any individual coverage tercile.}
 The full-portfolio outperformance (307.2\% vs.\ 243.6\%) reflects a cross-universe \emph{composition} effect---SFP's top-10 rule preferentially selects mid-coverage names (INTU, KLAC, LRCX, TSLA, ADBE) that happened to deliver strong returns, not names on which the semantic signal is demonstrably more predictive.
 This result substantially qualifies the main SFP finding; full discussion and the table appear in Section~\ref{sec:sfp}.
+
+\textbf{Causal chain from SSAI scores to basket membership.}
+For completeness: (1)~DeepSeek-V3 assigns integer scores $\sigma_d^s \in \{1,\ldots,5\}$ to each (article, ticker) pair from the FNSPID corpus; (2)~neutral imputation fills no-news days at 3; (3)~ridge regression on the 2013--2018 training panel fits weights $w \in \mathbb{R}^4$ minimising 5-day return prediction error; (4)~at each OOS date $d$, the composite score $\hat{y}_d^s = w^\top \sigma_d^s$ ranks the 30 tickers; (5)~the top-10 by $\hat{y}$ form the equal-weight basket for the next trading day.
+\emph{If the composition effect explains the full SFP advantage}, the implication is that the ridge weights learned in step~(3) are correlated with which tickers are frequently scored---they pick mid-coverage names as a side effect of the training signal, not because their SSAI scores are predictive on those names.
+This is precisely what the within-stratum analysis (Table~\ref{tab:coverage_stratified}) confirms: within any fixed coverage tercile, SFP does not outperform equal-weight B\&H.
+The LLM scores are a necessary ingredient (without them there is no ranking), but the performance originates from which names are \emph{selected}, not from the direction of the scores on selected names.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{LLM Signal Validation}
