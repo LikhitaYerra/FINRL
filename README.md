@@ -1,7 +1,7 @@
 # Semantic State Abstraction Interfaces (SSAI)
 ### Controlled Evaluation of LLM-Derived Signals in RL-Based Trading
 
-[![Paper](https://img.shields.io/badge/Paper-HAL%20Preprint-blue)](https://hal.science/view/index/docid/5613426)
+[![Paper](https://img.shields.io/badge/Paper-HAL%20Preprint-blue)](https://hal.science/view/index/docid/5613486)
 [![PDF](https://img.shields.io/badge/PDF-paper%2Fmain.pdf-green)](paper/main.pdf)
 [![Discord](https://dcbadge.limes.pink/api/server/ekrySuRBf4)](https://discord.gg/ekrySuRBf4)
 
@@ -58,7 +58,7 @@ SAC achieves significantly higher Sharpe than DP-PPO under identical observation
 
 | Resource | Link |
 |----------|------|
-| **Paper (HAL preprint)** | [hal.science/5613426](https://hal.science/view/index/docid/5613426) |
+| **Paper (HAL preprint)** | [hal.science/5613486](https://hal.science/view/index/docid/5613486) |
 | **Paper PDF** | [`paper/main.pdf`](paper/main.pdf) |
 | **Public version (HAL)** | [`paper/main_hal.pdf`](paper/main_hal.pdf) |
 | **LaTeX sources + figures** | [`hal_sources.zip`](hal_sources.zip) |
@@ -99,7 +99,7 @@ For the interactive dashboard: `./dashboard/start.sh` (FastAPI + Vite).
   title  = {Semantic State Abstraction Interfaces for LLM-Augmented Portfolio Decisions},
   author = {Yerra, Likhita},
   year   = {2026},
-  url    = {https://hal.science/view/index/docid/5613426}
+  url    = {https://hal.science/view/index/docid/5613486}
 }
 ```
 
