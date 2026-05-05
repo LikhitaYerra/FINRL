@@ -1,11 +1,14 @@
-# FinRL-DeepSeek: LLM-infused risk-sensitive RL for trading agents
+# Semantic State Abstraction Interfaces (SSAI): Controlled Evaluation of LLM-Derived Signals in RL-Based Trading
 
 [![Discord](https://dcbadge.limes.pink/api/server/ekrySuRBf4)](https://discord.gg/ekrySuRBf4)
 
 | Resource | Link |
 |----------|------|
+| **Paper (HAL preprint)** | [hal.science/5613426](https://hal.science/view/index/docid/5613426) |
+| **Paper PDF (this repo)** | [`paper/main.pdf`](paper/main.pdf) |
+| **Public version (HAL)** | [`paper/main_hal.pdf`](paper/main_hal.pdf) |
 | Blog | https://melwy.com/finrl_deepseek |
-| Paper | https://arxiv.org/abs/2502.07393 |
+| arXiv (prior version) | https://arxiv.org/abs/2502.07393 |
 | Hugging Face — data | [NASDAQ 2013–2023](https://huggingface.co/datasets/benstaf/nasdaq_2013_2023/tree/main) |
 | Hugging Face — agents | [Trading_agents](https://huggingface.co/benstaf/Trading_agents/tree/main) |
 | FinRL upstream mirror | [AI4Finance FinRL_DeepSeek](https://github.com/AI4Finance-Foundation/FinRL_DeepSeek) |
