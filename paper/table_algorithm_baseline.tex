@@ -1,14 +1,18 @@
 \begin{table}[htbp]
 \centering
-\caption{\textbf{Algorithm baseline with identical four-signal observations (2019--2023).} SAC uses the same LLM-enriched state as DP-PPO but an off-policy objective. \textbf{Preliminary: SAC result is a single run; multi-seed statistical comparison to DP-PPO is not yet available.} See Section~\ref{sec:sac_baseline} and Limitations (Section~\ref{sec:discussion}).}
+\caption{\textbf{Algorithm baseline with identical four-signal observations (2019--2023).}
+SAC (7 seeds) and DP-PPO (21 seeds) share the same LLM-enriched state vector.
+Mean$\pm$std reported; Mann-Whitney $U$ test (two-sided) compares the two seed distributions.
+SAC achieves significantly higher Sharpe ($p{=}0.027$); CR gap is not significant ($p{=}0.604$), consistent with the algorithm-vs-representation attribution: identical observations, different objectives.
+See Section~\ref{sec:sac_baseline}.}
 \label{tab:algorithm_baseline}
-\begin{tabular}{lrrrrr}
+\begin{tabular}{lrrrr}
 \toprule
-\textbf{Strategy} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Sortino} & \textbf{MDD (\%)} & \textbf{Calmar} \\
+\textbf{Strategy} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Seeds} & \textbf{MW $p$ (Sharpe)} \\
 \midrule
-DP-PPO (LLM signals) & 179.586 & 0.925 & 1.260 & -36.582 & 0.625 \\
-SAC (LLM signals) & 242.723 & 1.127 & 1.552 & -33.168 & 0.844 \\
-Buy \& Hold (EW) & 243.574 & 1.032 & 1.406 & -36.705 & 0.764 \\
+DP-PPO (LLM signals) & $195.0 \pm 45.3$ & $0.920 \pm 0.099$ & 21 & --- \\
+SAC (LLM signals)    & $202.3 \pm 38.9$ & $1.059 \pm 0.140$ &  7 & $\mathbf{0.027}$ \\
+Buy \& Hold (EW)     & 243.6            & 1.032             & --- & --- \\
 \bottomrule
 \end{tabular}
 \end{table}

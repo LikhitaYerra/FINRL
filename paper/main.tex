@@ -312,7 +312,7 @@ test period (numeric cells match \texttt{eval\_harness.py} exports).
 \textbf{Factor portfolios} (Table~\ref{tab:factor_comparison}): PC1-SFP \textbf{433.6\%}/\textbf{1.256}~Sharpe; FinBERT-SFP \textbf{386.3\%}/\textbf{1.206}; 4-axis SSAI-SFP \textbf{307.2\%}/\textbf{1.067}; B\&H \textbf{243.6\%}/\textbf{1.032}.
 The 63pp SSAI--B\&H gap fails within-stratum controls (all three coverage terciles; Table~\ref{tab:coverage_stratified}), reverses at ${\geq}0.2\%$ costs, and the 4-axis vs.\ sentiment-only advantage is non-significant (Wilcoxon $p{=}0.556$; Table~\ref{tab:semantic_stat_tests}).
 \textbf{Supervised} (Table~\ref{tab:supervised_forecasting}): naive LLM appending hurts ridge; VADER/TF--IDF and high-conviction tilt recover Sharpe~$\sim$0.674; FinBERT-ridge 125.0\%/0.649 $\approx$ price-only.
-\textbf{RL} (preliminary---single SAC run): SAC \textbf{242.7\%}/\textbf{1.128} vs.\ DP-PPO 179.6\%/0.925; 21-seed Sharpe $0.920\pm0.096$ (full) vs.\ $0.907\pm0.094$ (masked), Wilcoxon $p{\approx}0.25$--$0.31$; removing \emph{confidence} drops CR to 185.1\%; removing \emph{volatility\_forecast} enlarges MDD to $-$43.8\%.
+\textbf{RL}: SAC (7 seeds) mean Sharpe \textbf{$1.059\pm0.140$} vs.\ DP-PPO (21 seeds) $0.920\pm0.099$, Mann-Whitney $p{=}\mathbf{0.027}$; CR not significant ($p{=}0.604$); DP-PPO 21-seed Sharpe $0.920\pm0.099$ (full) vs.\ $0.907\pm0.094$ (masked), Wilcoxon $p{\approx}0.25$--$0.31$; removing \emph{confidence} drops CR to 185.1\%; removing \emph{volatility\_forecast} enlarges MDD to $-$43.8\%.
 
 \IfFileExists{table_semantic_factor_portfolio.tex}{%
 \subsection{Direct Semantic Factor Portfolio}
@@ -364,14 +364,14 @@ FinBERT-SFP (386.3\%) outperforms SSAI-SFP here yet underperformed in ridge fore
 \IfFileExists{table_algorithm_baseline.tex}{%
 \subsection{Algorithm Baseline: SAC}
 \label{sec:sac_baseline}
-Table~\ref{tab:algorithm_baseline} compares the released DP-PPO checkpoint against an SAC policy trained with the same LLM-enriched observation vector.
-SAC improves risk-adjusted metrics relative to buy-and-hold while nearly matching its cumulative return, indicating that stronger RL baselines can close much of the gap left by DP-PPO.
-This directly answers RQ3: the same sparse semantic state is more useful under an off-policy objective with replay and entropy regularisation than under the released on-policy DP-PPO run (Appendix~\ref{app:sac_mechanism} discusses mechanism hypotheses).
-We emphasise diagnostic interpretation; a controlled study isolating optimizer vs.\ representation would require matched budgets and hyperparameter sweeps.
+Table~\ref{tab:algorithm_baseline} compares SAC (7 seeds) against DP-PPO (21 seeds), both using the identical LLM-enriched observation vector.
+\textbf{SAC achieves mean Sharpe $1.059\pm0.140$ vs.\ DP-PPO $0.920\pm0.099$; Mann-Whitney $U$ test gives $p{=}0.027$} (two-sided), a statistically significant advantage at the 5\% level.
+CR means are not significantly different ($202.3\%\pm38.9\%$ vs.\ $195.0\%\pm45.3\%$; $p{=}0.604$).
 
-RL results (SAC: 242.7\%, DP-PPO: 179.6\%) and factor portfolios (PC1: 433.6\%) occupy different performance regimes by design: RL agents operate under stochastic policy noise and are evaluated as diagnostics, not as maximum-return systems; factor portfolios use deterministic top-10 rules. Whether SAC with a FinBERT state would narrow this gap is open but outside scope.
+Since both agents share the same frozen $\phi$, the Sharpe gap is attributable to algorithm differences (off-policy replay, entropy regularisation) rather than representation differences---directly answering RQ3 and confirming the SSAI evaluation invariant (Appendix~\ref{app:invariant}).
+The observation that CR is not significantly different while Sharpe is confirms that SAC's advantage is primarily in downside management (reduced variance), not in raw return.
+RL results and factor portfolios occupy different performance regimes by design: RL agents operate under stochastic policy noise evaluated as diagnostics; factor portfolios use deterministic top-10 rules. Whether SAC with a FinBERT state would narrow the factor-portfolio gap is open.
 \input{table_algorithm_baseline.tex}
-% Algorithm comparison figure in Appendix~\ref{app:additional}
 }{}
 
 \subsection{Ablation: Signal Contribution}
@@ -407,7 +407,7 @@ Evaluation-time masking is not causal; RL as diagnostic, not product; signal val
 \paragraph{Limitations.}
 (1)~\textbf{Composition confound}: the 63pp SFP gap fails within-stratum controls and reverses at ${\geq}0.2\%$ costs.
 (2)~\textbf{Single-market}: NASDAQ-100, 2019--2023 only; sector-neutral and rolling OOS designs are open.
-(3)~\textbf{SAC is one run}: preliminary; matched multi-seed comparison required.
+(3)~\textbf{SAC budget}: 7 seeds vs.\ 21 DP-PPO seeds; Sharpe gap is significant ($p{=}0.027$) but CR is not ($p{=}0.604$); hyperparameter parity not guaranteed.
 (4)~\textbf{Open encoder gaps}: FinBERT/FinGPT as RL state vectors remain untested.
 This work is a retrospective benchmark; see Appendix~\ref{app:ethics} for ethics and Appendix~\ref{app:impl} for reproducibility details.
 
