@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{Signal validity proxy: pooled Spearman information coefficients between LLM signal coordinates and 5-day forward returns / absolute returns on the 2019--2023 stock-date panel. This is not a human annotation audit, but it checks whether scores align with realized market quantities rather than pure noise.}
+\label{tab:signal_ic}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Signal} & \textbf{Return IC} & \textbf{$p$} & \textbf{$|$Return$|$ IC} & \textbf{$p$} \\
+\midrule
+sentiment & 0.0044 & 0.39 & -0.0047 & 0.36 \\
+risk & -0.0152 & 0.0032 & 0.0122 & 0.018 \\
+confidence & 0.0217 & 2.5e-05 & 0.0065 & 0.21 \\
+volatility\_forecast & -0.0045 & 0.38 & 0.0175 & 0.00068 \\
+\bottomrule
+\end{tabular}
+\end{table}

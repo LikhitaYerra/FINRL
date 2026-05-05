@@ -1,0 +1,171 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{mnih2015human,schulman2017proximal,liu2021finrl}
+\citation{brown2020language,liu2023fingpt,wu2023bloomberggpt}
+\citation{yang2020finrl}
+\citation{benstaf2024finrl_deepseek}
+\citation{chen2023chatgpt}
+\citation{liu2021finrl}
+\citation{yangfinrl2020,liu2022finrl2}
+\citation{tamar2015optimizing}
+\citation{ray2019benchmarking}
+\citation{liu2023fingpt}
+\citation{wu2023bloomberggpt}
+\citation{benstaf2024finrl_deepseek}
+\citation{benstaf2024finrl_deepseek,chen2023chatgpt}
+\citation{toubia2024fnspid}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{2}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Contribution.}{2}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Research questions.}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{2}{Related Work}{section.2}{}}
+\citation{bengio2013representation}
+\citation{higgins2017beta}
+\citation{ribeiro2016should}
+\citation{lundberg2017unified}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Method}{3}{section.3}\protected@file@percent }
+\newlabel{sec:method}{{3}{3}{Method}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Multi-Signal LLM Scoring}{3}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:signals}{{3.1}{3}{Multi-Signal LLM Scoring}{subsection.3.1}{}}
+\citation{kritzman2010regime}
+\@writefile{toc}{\contentsline {paragraph}{Evaluation invariant.}{4}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Trading Environment}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:env}{{3.2}{4}{Trading Environment}{subsection.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Drawdown-Penalised PPO Reward}{4}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:dppo}{{3.3}{4}{Drawdown-Penalised PPO Reward}{subsection.3.3}{}}
+\citation{toubia2024fnspid}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}LLM Signal Integration}{5}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:integration}{{3.4}{5}{LLM Signal Integration}{subsection.3.4}{}}
+\newlabel{sec:llm_scoring}{{3.4}{5}{LLM Signal Integration}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Semantic Factor Portfolio (SFP).}{5}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experimental Setup}{5}{section.4}\protected@file@percent }
+\newlabel{sec:experiments}{{4}{5}{Experimental Setup}{section.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Data.}{5}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Baselines.}{5}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Metrics.}{5}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{5}{section.5}\protected@file@percent }
+\newlabel{sec:results}{{5}{5}{Results}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Main Performance Comparison}{5}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Main Strategy Comparison (2019–2023)}}{5}{table.1}\protected@file@percent }
+\newlabel{tab:main_results}{{1}{5}{Main Strategy Comparison (2019–2023)}{table.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Key findings.}{5}{section*.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Normalized portfolio value on the 2019--2023 test window (DP-PPO with LLM signals versus baselines), produced by \texttt  {eval\_harness.py}.}}{6}{figure.1}\protected@file@percent }
+\newlabel{fig:equity_main}{{1}{6}{Normalized portfolio value on the 2019--2023 test window (DP-PPO with LLM signals versus baselines), produced by \texttt {eval\_harness.py}}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Direct Semantic Factor Portfolio}{6}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:sfp}{{5.2}{6}{Direct Semantic Factor Portfolio}{subsection.5.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Semantic Factor Portfolio variants. Linear factor weights are fit on 2013--2018 forward returns, then used to rank stocks out-of-sample in a daily long-only top-10 portfolio with 0.1\% transaction costs. SRF residualizes non-sentiment axes against sentiment. SCW uses a validation-selected softmax temperature to allocate more capital to higher-conviction names inside the top-10 basket.}}{6}{table.2}\protected@file@percent }
+\newlabel{tab:semantic_factor_portfolio}{{2}{6}{Semantic Factor Portfolio variants. Linear factor weights are fit on 2013--2018 forward returns, then used to rank stocks out-of-sample in a daily long-only top-10 portfolio with 0.1\% transaction costs. SRF residualizes non-sentiment axes against sentiment. SCW uses a validation-selected softmax temperature to allocate more capital to higher-conviction names inside the top-10 basket}{table.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Coverage-stratified analysis: key qualification (Table~\ref {tab:coverage_stratified}).}{6}{section*.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Coverage-stratified SFP vs.\ equal-weight B\&H (2019--2023). Tickers split into thirds by non-neutral signal coverage fraction (Low $<$5\%: MSFT/META/ISRG/COST/INTC/AMZN/AAPL/AMD/PANW/SNPS; Mid 5--15\%: INTU/KLAC/ORCL/TXN/REGN/MCHP/LRCX/CDNS/TSLA/ADBE; High $>$15\%: MRVL/AMAT/NFLX/ADI/QCOM/ASML/MU/NVDA/AVGO/GOOGL). Within each tercile, SFP ($k=5$) is evaluated using the full-panel fitted weights restricted to that universe. \textbf  {SFP underperforms within-tercile B\&H in all three groups}, indicating that the full-portfolio outperformance (307\% vs.\ 244\% B\&H over all 30 stocks) is substantially a cross-universe selection effect---SFP picks mid-coverage names that happened to outperform the full equal-weight basket---rather than purely a within-coverage-tier signal quality advantage.}}{7}{table.3}\protected@file@percent }
+\newlabel{tab:coverage_stratified}{{3}{7}{Coverage-stratified SFP vs.\ equal-weight B\&H (2019--2023). Tickers split into thirds by non-neutral signal coverage fraction (Low $<$5\%: MSFT/META/ISRG/COST/INTC/AMZN/AAPL/AMD/PANW/SNPS; Mid 5--15\%: INTU/KLAC/ORCL/TXN/REGN/MCHP/LRCX/CDNS/TSLA/ADBE; High $>$15\%: MRVL/AMAT/NFLX/ADI/QCOM/ASML/MU/NVDA/AVGO/GOOGL). Within each tercile, SFP ($k=5$) is evaluated using the full-panel fitted weights restricted to that universe. \textbf {SFP underperforms within-tercile B\&H in all three groups}, indicating that the full-portfolio outperformance (307\% vs.\ 244\% B\&H over all 30 stocks) is substantially a cross-universe selection effect---SFP picks mid-coverage names that happened to outperform the full equal-weight basket---rather than purely a within-coverage-tier signal quality advantage}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Supervised Forecasting Stress Test}{7}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:supervised_forecasting}{{5.3}{7}{Supervised Forecasting Stress Test}{subsection.5.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Supervised forecasting baselines. Ridge models predict 5-day forward returns from price/technical features alone, price plus LLM sentiment or four-factor semantics, price plus lexical dense headlines (VADER; train-fit TF--IDF/SVD), optional FinBERT tone when available, or a semantic tilt. Ridge strength and the semantic tilt are selected on 2018 validation Sharpe, refit on 2013--2018, and evaluated once on 2019--2023 using the same daily top-10 portfolio rule as SFP.}}{7}{table.4}\protected@file@percent }
+\newlabel{tab:supervised_forecasting}{{4}{7}{Supervised forecasting baselines. Ridge models predict 5-day forward returns from price/technical features alone, price plus LLM sentiment or four-factor semantics, price plus lexical dense headlines (VADER; train-fit TF--IDF/SVD), optional FinBERT tone when available, or a semantic tilt. Ridge strength and the semantic tilt are selected on 2018 validation Sharpe, refit on 2013--2018, and evaluated once on 2019--2023 using the same daily top-10 portfolio rule as SFP}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Factor Comparison: PC1, FinBERT, and SSAI}{7}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:factor_comparison}{{5.4}{7}{Factor Comparison: PC1, FinBERT, and SSAI}{subsection.5.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Factor portfolio comparison (2019--2023, 30 tickers, daily top-10 rebalancing). PC1-SFP uses first principal component of four semantic axes (83.4\% explained variance); FinBERT-SFP uses ProsusAI/finbert sentiment scores as ranking signal; 4-axis SSAI (SFP) uses validated semantic factor weights from Table~\ref {tab:semantic_factor_portfolio}. }}{8}{table.5}\protected@file@percent }
+\newlabel{tab:factor_comparison}{{5}{8}{Factor portfolio comparison (2019--2023, 30 tickers, daily top-10 rebalancing). PC1-SFP uses first principal component of four semantic axes (83.4\% explained variance); FinBERT-SFP uses ProsusAI/finbert sentiment scores as ranking signal; 4-axis SSAI (SFP) uses validated semantic factor weights from Table~\ref {tab:semantic_factor_portfolio}}{table.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Algorithm Baseline: SAC}{8}{subsection.5.5}\protected@file@percent }
+\newlabel{sec:sac_baseline}{{5.5}{8}{Algorithm Baseline: SAC}{subsection.5.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces \textbf  {Algorithm baseline with identical four-signal observations (2019--2023).} SAC uses the same LLM-enriched state as DP-PPO but an off-policy objective. \textbf  {Preliminary: SAC result is a single run; multi-seed statistical comparison to DP-PPO is not yet available.} See Section~\ref {sec:sac_baseline} and Limitations (Section~\ref {sec:discussion}).}}{8}{table.6}\protected@file@percent }
+\newlabel{tab:algorithm_baseline}{{6}{8}{\textbf {Algorithm baseline with identical four-signal observations (2019--2023).} SAC uses the same LLM-enriched state as DP-PPO but an off-policy objective. \textbf {Preliminary: SAC result is a single run; multi-seed statistical comparison to DP-PPO is not yet available.} See Section~\ref {sec:sac_baseline} and Limitations (Section~\ref {sec:discussion})}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Ablation: Signal Contribution}{8}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Multi-seed robustness}{8}{subsection.5.7}\protected@file@percent }
+\newlabel{sec:seed_robust}{{5.7}{8}{Multi-seed robustness}{subsection.5.7}{}}
+\newlabel{app:seeds}{{5.7}{8}{Multi-seed robustness}{subsection.5.7}{}}
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{benstaf2024finrl_deepseek}{{1}{2025}{{Benhenda}}{{}}}
+\bibcite{brown2020language}{{2}{2020}{{Brown et~al.}}{{Brown, Mann, Ryder, et~al.}}}
+\bibcite{toubia2024fnspid}{{3}{2024}{{Dong et~al.}}{{Dong, Fan, and Peng}}}
+\bibcite{kritzman2010regime}{{4}{2010}{{Kritzman and Li}}{{}}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Signal Ablation Study — DP-PPO Variants}}{9}{table.7}\protected@file@percent }
+\newlabel{tab:ablation}{{7}{9}{Signal Ablation Study — DP-PPO Variants}{table.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Multi-seed robustness (21 seeds, 2019--2023). Mean $\pm $ std across seeds for cumulative return and Sharpe. \textit  {Neutral eval} masks all LLM coordinates to neutral using the same checkpoints.}}{9}{table.8}\protected@file@percent }
+\newlabel{tab:seed_robust}{{8}{9}{Multi-seed robustness (21 seeds, 2019--2023). Mean $\pm $ std across seeds for cumulative return and Sharpe. \textit {Neutral eval} masks all LLM coordinates to neutral using the same checkpoints}{table.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{9}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{9}{Discussion}{section.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Representation vs.\ algorithm.}{9}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{9}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{9}{section.7}\protected@file@percent }
+\newlabel{sec:conclusion}{{7}{9}{Conclusion}{section.7}{}}
+\newlabel{p:endmaincontent}{{7}{9}{Conclusion}{section.7}{}}
+\bibcite{liu2021finrl}{{5}{2021}{{Liu et~al.}}{{Liu, Yang, Chen, Zhang, Yang, Xiao, and Wang}}}
+\bibcite{liu2022finrl2}{{6}{2022}{{Liu et~al.}}{{Liu, Rui, Gao, Yang, Yang, Wang, Wang, and Guo}}}
+\bibcite{liu2023fingpt}{{7}{2023}{{Liu et~al.}}{{Liu, Wang, and Zha}}}
+\bibcite{chen2023chatgpt}{{8}{2023}{{Lopez-Lira and Tang}}{{}}}
+\bibcite{mnih2015human}{{9}{2015}{{Mnih et~al.}}{{Mnih, Kavukcuoglu, Silver, et~al.}}}
+\bibcite{ray2019benchmarking}{{10}{2019}{{Ray et~al.}}{{Ray, Achiam, and Amodei}}}
+\bibcite{schulman2017proximal}{{11}{2017}{{Schulman et~al.}}{{Schulman, Wolski, Dhariwal, Radford, and Klimov}}}
+\bibcite{tamar2015optimizing}{{12}{2015}{{Tamar et~al.}}{{Tamar, Glassner, and Mannor}}}
+\bibcite{wu2023bloomberggpt}{{13}{2023}{{Wu et~al.}}{{Wu, Irsoy, Lu, et~al.}}}
+\bibcite{yang2020finrl}{{14}{2020{a}}{{Yang et~al.}}{{Yang, Liu, Zhong, and Walid}}}
+\bibcite{yangfinrl2020}{{15}{2020{b}}{{Yang et~al.}}{{Yang, Liu, Zhong, and Walid}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Formal Framework Definition}{10}{appendix.A}\protected@file@percent }
+\newlabel{app:ssai_def}{{A}{10}{Formal Framework Definition}{appendix.A}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}SSAI Evaluation Invariant}{10}{subsection.A.1}\protected@file@percent }
+\newlabel{app:invariant}{{A.1}{10}{SSAI Evaluation Invariant}{subsection.A.1}{}}
+\citation{kritzman2010regime}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces FinRL-MultiSignal pipeline. The LLM supplies structured semantic factors; trading decisions are learned by the RL policy from market state plus those factors.}}{11}{figure.2}\protected@file@percent }
+\newlabel{fig:pipeline}{{2}{11}{FinRL-MultiSignal pipeline. The LLM supplies structured semantic factors; trading decisions are learned by the RL policy from market state plus those factors}{figure.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Implementation Details}{11}{appendix.B}\protected@file@percent }
+\newlabel{app:impl}{{B}{11}{Implementation Details}{appendix.B}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Pipeline schematic}{11}{subsection.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}LLM Scoring Prompt}{11}{subsection.B.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Network Architecture}{11}{subsection.B.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.4}Data Pipeline}{11}{subsection.B.4}\protected@file@percent }
+\newlabel{app:tickers}{{B.4}{11}{Ticker universe}{section*.13}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ticker universe.}{11}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.5}Compute}{12}{subsection.B.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.6}Drawdown shaping interpretation}{12}{subsection.B.6}\protected@file@percent }
+\newlabel{app:dppo_interp}{{B.6}{12}{Drawdown shaping interpretation}{subsection.B.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}SAC mechanism hypotheses}{12}{appendix.C}\protected@file@percent }
+\newlabel{app:sac_mechanism}{{C}{12}{SAC mechanism hypotheses}{appendix.C}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Cross-domain SSAI instantiations}{12}{appendix.D}\protected@file@percent }
+\newlabel{app:generalize}{{D}{12}{Cross-domain SSAI instantiations}{appendix.D}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}Additional Results}{12}{appendix.E}\protected@file@percent }
+\newlabel{app:additional}{{E}{12}{Additional Results}{appendix.E}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.1}Regime Analysis and Sub-period Breakdown}{12}{subsection.E.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Transaction-cost sensitivity for the released DP-PPO checkpoint versus equal-weight buy-and-hold.}}{13}{figure.3}\protected@file@percent }
+\newlabel{fig:txcost}{{3}{13}{Transaction-cost sensitivity for the released DP-PPO checkpoint versus equal-weight buy-and-hold}{figure.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Sub-period breakdown for the released DP-PPO checkpoint versus equal-weight buy-and-hold.}}{13}{table.9}\protected@file@percent }
+\newlabel{tab:subperiod}{{9}{13}{Sub-period breakdown for the released DP-PPO checkpoint versus equal-weight buy-and-hold}{table.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.2}Transaction-Cost Sensitivity}{13}{subsection.E.2}\protected@file@percent }
+\newlabel{sec:txcost}{{E.2}{13}{Transaction-Cost Sensitivity}{subsection.E.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Transaction-cost sensitivity for the released DP-PPO checkpoint. Buy-and-hold has no ongoing rebalance cost in this sweep; DP-PPO remains below the passive sleeve across tested cost levels.}}{13}{table.10}\protected@file@percent }
+\newlabel{tab:txcost}{{10}{13}{Transaction-cost sensitivity for the released DP-PPO checkpoint. Buy-and-hold has no ongoing rebalance cost in this sweep; DP-PPO remains below the passive sleeve across tested cost levels}{table.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.3}Paired daily-return diagnostics (non-RL baselines)}{13}{subsection.E.3}\protected@file@percent }
+\newlabel{sec:stat_tests}{{E.3}{13}{Paired daily-return diagnostics (non-RL baselines)}{subsection.E.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.4}SFP Transaction-Cost Sensitivity}{13}{subsection.E.4}\protected@file@percent }
+\newlabel{sec:sfp_txcost}{{E.4}{13}{SFP Transaction-Cost Sensitivity}{subsection.E.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Paired daily-return diagnostics: semantic baselines plus multi-seed RL vs EW benchmark. The confidence interval is a 20-trading-day block bootstrap over mean paired daily active returns, in basis points per day. Wilcoxon tests are paired over daily returns and are reported as diagnostics rather than definitive multiple-comparison-adjusted claims.}}{14}{table.11}\protected@file@percent }
+\newlabel{tab:semantic_stat_tests}{{11}{14}{Paired daily-return diagnostics: semantic baselines plus multi-seed RL vs EW benchmark. The confidence interval is a 20-trading-day block bootstrap over mean paired daily active returns, in basis points per day. Wilcoxon tests are paired over daily returns and are reported as diagnostics rather than definitive multiple-comparison-adjusted claims}{table.11}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces SFP transaction-cost sensitivity (2019--2023). Each row re-evaluates the daily top-10 four-factor SFP at the stated per-trade cost. B\&H (equal-weight price-average index, same computation as Table~2, 243.6\% CR) is cost-free throughout. \textbf  {SFP is highly turnover-sensitive}: it outperforms B\&H only at $\leq $0.1\% per trade and underperforms at $\geq $0.2\%, collapsing at 0.5\%+. The paper's main reported result uses 0.1\%; realistic broker costs (0.2--0.5\%) reverse the advantage. Mirrors Table~8 (DP-PPO tx-cost sensitivity) for the direct portfolio.}}{14}{table.12}\protected@file@percent }
+\newlabel{tab:sfp_txcost}{{12}{14}{SFP transaction-cost sensitivity (2019--2023). Each row re-evaluates the daily top-10 four-factor SFP at the stated per-trade cost. B\&H (equal-weight price-average index, same computation as Table~2, 243.6\% CR) is cost-free throughout. \textbf {SFP is highly turnover-sensitive}: it outperforms B\&H only at $\leq $0.1\% per trade and underperforms at $\geq $0.2\%, collapsing at 0.5\%+. The paper's main reported result uses 0.1\%; realistic broker costs (0.2--0.5\%) reverse the advantage. Mirrors Table~8 (DP-PPO tx-cost sensitivity) for the direct portfolio}{table.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.5}SFP Sub-period Performance}{14}{subsection.E.5}\protected@file@percent }
+\newlabel{sec:sfp_subperiod}{{E.5}{14}{SFP Sub-period Performance}{subsection.E.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.6}High-Coverage Underperformance Paradox}{14}{subsection.E.6}\protected@file@percent }
+\newlabel{app:coverage_paradox}{{E.6}{14}{High-Coverage Underperformance Paradox}{subsection.E.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces SFP sub-period performance (2019--2023). Mirrors Table~7 (DP-PPO sub-periods). Excess CR = SFP minus equal-weight B\&H (same computation as Table~2). SFP outperforms in 3 of 5 calendar years (2020, 2021, 2023). The single largest annual outperformance (+26pp) occurs in 2023, coinciding with the AI investment cycle rally that disproportionately benefited the high-coverage NASDAQ names (NVDA, GOOGL, AVGO) that dominate the SFP basket; it is not possible to rule out that SFP's 2023 excess is a disguised factor exposure rather than a semantic signal effect. SFP underperforms in 2019 and 2022 (rate-hike, drawdown year). Cost = 0.1\% per trade.}}{15}{table.13}\protected@file@percent }
+\newlabel{tab:sfp_subperiod}{{13}{15}{SFP sub-period performance (2019--2023). Mirrors Table~7 (DP-PPO sub-periods). Excess CR = SFP minus equal-weight B\&H (same computation as Table~2). SFP outperforms in 3 of 5 calendar years (2020, 2021, 2023). The single largest annual outperformance (+26pp) occurs in 2023, coinciding with the AI investment cycle rally that disproportionately benefited the high-coverage NASDAQ names (NVDA, GOOGL, AVGO) that dominate the SFP basket; it is not possible to rule out that SFP's 2023 excess is a disguised factor exposure rather than a semantic signal effect. SFP underperforms in 2019 and 2022 (rate-hike, drawdown year). Cost = 0.1\% per trade}{table.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.7}SFP/SRF/SCW Numerical Coincidence}{15}{subsection.E.7}\protected@file@percent }
+\newlabel{app:sfp_coincidence}{{E.7}{15}{SFP/SRF/SCW Numerical Coincidence}{subsection.E.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.8}Coverage-Stratified SFP Analysis}{15}{subsection.E.8}\protected@file@percent }
+\newlabel{sec:coverage_stratified}{{E.8}{15}{Coverage-Stratified SFP Analysis}{subsection.E.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {F}LLM Signal Validation}{15}{appendix.F}\protected@file@percent }
+\newlabel{app:signal_val}{{F}{15}{LLM Signal Validation}{appendix.F}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Descriptive statistics of LLM-generated signal scores (39,995 articles).}}{15}{table.14}\protected@file@percent }
+\newlabel{tab:signal_stats}{{14}{15}{Descriptive statistics of LLM-generated signal scores (39,995 articles)}{table.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {G}Ethics, Deployment, and Reproducibility}{15}{appendix.G}\protected@file@percent }
+\newlabel{app:ethics}{{G}{15}{Ethics, Deployment, and Reproducibility}{appendix.G}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces LLM semantic signal validation on the full 2013--2023 panel ($N{=}83{,}040$ stock-days, 18{,}578 non-neutral). (A) Score distributions on non-neutral days show structured directional skew. (B) Inter-signal Spearman correlations replicate expected semantic structure. (C) Lag-1 temporal autocorrelation per ticker confirms scores are not white noise. (D) Signal--return IC: confidence shows a significant positive IC ($p{=}0.004$).}}{16}{figure.4}\protected@file@percent }
+\newlabel{fig:signal_validation}{{4}{16}{LLM semantic signal validation on the full 2013--2023 panel ($N{=}83{,}040$ stock-days, 18{,}578 non-neutral). (A) Score distributions on non-neutral days show structured directional skew. (B) Inter-signal Spearman correlations replicate expected semantic structure. (C) Lag-1 temporal autocorrelation per ticker confirms scores are not white noise. (D) Signal--return IC: confidence shows a significant positive IC ($p{=}0.004$)}{figure.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Ticker-level LLM signal coverage on the 2019--2023 trade panel. Coverage is the percentage of stock-days whose score differs from the neutral imputation value 3.0; rows show the five most-covered and five least-covered tickers.}}{16}{table.15}\protected@file@percent }
+\newlabel{tab:coverage_bias}{{15}{16}{Ticker-level LLM signal coverage on the 2019--2023 trade panel. Coverage is the percentage of stock-days whose score differs from the neutral imputation value 3.0; rows show the five most-covered and five least-covered tickers}{table.15}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces Signal validity proxy: pooled Spearman information coefficients between LLM signal coordinates and 5-day forward returns / absolute returns on the 2019--2023 stock-date panel. This is not a human annotation audit, but it checks whether scores align with realized market quantities rather than pure noise.}}{17}{table.16}\protected@file@percent }
+\newlabel{tab:signal_ic}{{16}{17}{Signal validity proxy: pooled Spearman information coefficients between LLM signal coordinates and 5-day forward returns / absolute returns on the 2019--2023 stock-date panel. This is not a human annotation audit, but it checks whether scores align with realized market quantities rather than pure noise}{table.16}{}}
+\gdef \@abspage@last{24}

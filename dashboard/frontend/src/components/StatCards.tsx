@@ -6,10 +6,12 @@ interface Stat { label: string; value: string; sub?: string; color?: string }
 
 function Card({ label, value, sub, color }: Stat) {
   return (
-    <div className="card flex flex-col gap-1">
-      <span className="text-xs text-gray-500 uppercase tracking-wider">{label}</span>
-      <span className={clsx("text-2xl font-bold tabular-nums", color ?? "text-white")}>{value}</span>
-      {sub && <span className="text-xs text-gray-500">{sub}</span>}
+    <div className="stat-tile flex flex-col gap-1">
+      <span className="text-xs text-zinc-500 uppercase tracking-wider">{label}</span>
+      <span className={clsx("text-2xl font-semibold tabular-nums font-mono tracking-tight", color ?? "text-white")}>
+        {value}
+      </span>
+      {sub && <span className="text-xs text-zinc-500">{sub}</span>}
     </div>
   );
 }

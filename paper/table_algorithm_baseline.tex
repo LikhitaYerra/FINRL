@@ -1,0 +1,14 @@
+\begin{table}[htbp]
+\centering
+\caption{\textbf{Algorithm baseline with identical four-signal observations (2019--2023).} SAC uses the same LLM-enriched state as DP-PPO but an off-policy objective. \textbf{Preliminary: SAC result is a single run; multi-seed statistical comparison to DP-PPO is not yet available.} See Section~\ref{sec:sac_baseline} and Limitations (Section~\ref{sec:discussion}).}
+\label{tab:algorithm_baseline}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Strategy} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Sortino} & \textbf{MDD (\%)} & \textbf{Calmar} \\
+\midrule
+DP-PPO (LLM signals) & 179.586 & 0.925 & 1.260 & -36.582 & 0.625 \\
+SAC (LLM signals) & 242.723 & 1.127 & 1.552 & -33.168 & 0.844 \\
+Buy \& Hold (EW) & 243.574 & 1.032 & 1.406 & -36.705 & 0.764 \\
+\bottomrule
+\end{tabular}
+\end{table}

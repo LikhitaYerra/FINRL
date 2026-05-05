@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{SFP transaction-cost sensitivity (2019--2023). Each row re-evaluates the daily top-10 four-factor SFP at the stated per-trade cost. B\&H (equal-weight price-average index, same computation as Table~2, 243.6\% CR) is cost-free throughout. \textbf{SFP is highly turnover-sensitive}: it outperforms B\&H only at $\leq$0.1\% per trade and underperforms at $\geq$0.2\%, collapsing at 0.5\%+. The paper's main reported result uses 0.1\%; realistic broker costs (0.2--0.5\%) reverse the advantage. Mirrors Table~8 (DP-PPO tx-cost sensitivity) for the direct portfolio.}
+\label{tab:sfp_txcost}
+\begin{tabular}{rrrrrr}
+\toprule
+\textbf{Cost (\%)} & \textbf{SFP CR (\%)} & \textbf{SFP Sharpe} & \textbf{SFP MDD (\%)} & \textbf{B\&H CR (\%)} & \textbf{B\&H Sharpe} \\
+\midrule
+0.05 & 363.3 & 1.151 & -35.6 & 243.6 & 1.032 \\
+0.10 & 307.2 & 1.067 & -35.6 & 243.6 & 1.032 \\
+0.20 & 214.5 & 0.899 & -35.6 & 243.6 & 1.032 \\
+0.50 & 44.7 & 0.395 & -59.3 & 243.6 & 1.032 \\
+1.00 & -60.5 & -0.436 & -86.1 & 243.6 & 1.032 \\
+2.00 & -97.1 & -2.002 & -98.9 & 243.6 & 1.032 \\
+\bottomrule
+\end{tabular}
+\end{table}

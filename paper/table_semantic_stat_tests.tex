@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Paired daily-return diagnostics: semantic baselines plus multi-seed RL vs EW benchmark. The confidence interval is a 20-trading-day block bootstrap over mean paired daily active returns, in basis points per day. Wilcoxon tests are paired over daily returns and are reported as diagnostics rather than definitive multiple-comparison-adjusted claims.}
+\label{tab:semantic_stat_tests}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Comparison} & \textbf{Mean bp/day} & \textbf{95\% CI} & \textbf{$\Delta$ Sharpe} & \textbf{Win \%} & \textbf{Wilcoxon $p$} \\
+\midrule
+SFP 4-factor vs sentiment-only & 0.352 & [-1.070, 1.885] & +0.017 & 27.4 & 0.556 \\
+SCW vs equal-weight SFP & 0.182 & [-1.224, 1.740] & +0.000 & 24.8 & 0.232 \\
+Semantic tilt vs price-only forecaster & 0.234 & [-1.198, 1.497] & +0.021 & 34.8 & 0.568 \\
+Multi-seed DP-PPO mean vs EW buy-and-hold & -1.392 & [-4.119, 1.606] & -0.082 & 49.7 & 0.631 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

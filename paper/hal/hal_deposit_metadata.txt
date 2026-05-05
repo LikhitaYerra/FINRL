@@ -1,0 +1,74 @@
+================================================================================
+HAL (hal.science) — metadata draft for manual deposit
+================================================================================
+How to use
+----------
+1. Open https://hal.science/ → sign in → use the deposit (“Submit”) workflow.
+2. Choose document type (see “Recommended type” below). Upload your PDF; HAL
+   can pre-fill fields via Grobid (see https://doc.hal.science/en/deposit_new/).
+3. Copy the TITLE, ABSTRACT, and KEYWORDS below into the form. Complete
+   AUTHORS and AFFILIATIONS in HAL’s reference database (green/yellow entries).
+4. Pick DOMAIN(s) in the UI (HAL controlled vocabulary) — e.g. computer
+   science / machine learning / NLP as appropriate; do not invent numeric codes.
+5. Legal: get co-author agreement; respect publisher/venue policies (NeurIPS
+   handbook) before making a public version identifiable. HAL deposits are
+   moderated and normally persistent once accepted.
+
+Recommended HAL document type (before proceedings publication)
+-------------------------------------------------------------
+“Preprint, working paper” — minimal mandatory fields; “publication date”
+defaults to deposit date (you may add a “production date” in detailed metadata
+if HAL offers it).
+
+If and only if your venue instructs a different HAL type after acceptance,
+update the record (e.g. conference proceedings) with official bibliographic data.
+
+================================================================================
+TITLE (single line)
+================================================================================
+LLM Semantic Factor Interfaces for Reinforcement Learning Portfolio Trading: Multi-Signal News Decomposition under Stochastic RL
+
+================================================================================
+FULLTEXT LANGUAGE
+================================================================================
+English
+
+================================================================================
+ABSTRACT (plain text — paste into HAL)
+================================================================================
+Sequential agents increasingly encounter sparse unstructured text: informative observations arrive on a minority of steps, while most transitions carry only a neutral default. We ask how such text should enter decision state—as dense embeddings, scalars, or a small set of interpretable coordinates—and how to separate representation quality from optimisation behaviour when LLMs supply the encoding. We instantiate Semantic State Abstraction Interfaces (SSAI): prompted LLM maps from documents to K auditable axes with neutral defaults on no-news days (formal definition in the Appendix), evaluated here with K=4 (sentiment, risk, confidence, volatility forecast) in a portfolio setting (FinRL-MultiSignal). Direct portfolios (SFP/SRF/SCW), supervised ridge forecasts, and paired RL agents (DP-PPO, SAC) share the same SSAI so representation effects can be read off independently of any single optimiser. On a 30-stock NASDAQ-100 panel (train 2013–2018; test 2019–2023), four-factor SFP reaches 307.2% cumulative return and Sharpe 1.067 vs. 291.9%/1.050 sentiment-only and 243.6%/1.032 equal-weight buy-and-hold; residualizing non-sentiment axes preserves gains; conviction weighting reaches 314.1%. Naively appending sparse LLM semantic columns hurts a dense price/technical ridge forecaster, while lexical headline aggregates (VADER; TF-IDF/SVD) and a validation-selected high-conviction semantic tilt recover Sharpe near the price-only ridge frontier—consistent with SSAI as a sparse allocation interface rather than a naive dense LLM feature block. The RL block is intentionally diagnostic: DP-PPO trails buy-and-hold but shows masking sensitivity; SAC with identical SSAI observations nearly matches buy-and-hold return and improves Sharpe (1.128 vs. 1.032), isolating algorithm dependence rather than claiming a production trading system. Across eight DP-PPO seeds, full scoring improves mean return (193.7% ± 43.7% vs. 187.2% ± 42.9%) and Sharpe (0.913 ± 0.094 vs. 0.889 ± 0.084) versus neutral-masked evaluation of the same checkpoints (bootstrap Sharpe CIs [0.85, 0.98] vs. [0.83, 0.94]), but paired Wilcoxon tests remain non-significant (p approximately 0.25–0.31). Overall, LLM-derived semantic factorisation functions as a reproducible SSAI whose strongest evidence is direct-portfolio and supervised sparse-use behaviour; RL outcomes must be read as optimisation stress tests under heavy neutral-default regimes.
+
+================================================================================
+KEYWORDS (comma-separated; edit as needed)
+================================================================================
+reinforcement learning, large language models, semantic state abstraction, portfolio trading, multi-signal news, FinRL, stochastic control, machine learning, financial NLP
+
+================================================================================
+AUTHORS — REPLACE WITH REAL NAMES / IdHAL / AFFILIATIONS (required by HAL)
+================================================================================
+Author 1: [LAST NAME, First name] — Affiliation: [select validated structure in HAL] — Email: [optional in HAL profile]
+Author 2: ...
+(Anonymous NeurIPS PDFs omit authors; HAL public deposits normally require
+deanonymized bibliographic metadata—coordinate with coauthors.)
+
+================================================================================
+OPTIONAL “COMMENT” / COVERAGE NOTE (detailed metadata, if available)
+================================================================================
+Submitted to the NeurIPS 2026 main track (under review at time of deposit).
+This is not a peer-reviewed publication.
+
+================================================================================
+FILES TO ATTACH IN HAL
+================================================================================
+Primary: paper/main.pdf (rebuild with pdflatex so metadata matches).
+Annexes: supplementary archive if HAL allows multiple files and you want one.
+
+================================================================================
+MINIMAL BibTeX (for your reference; HAL form is separate)
+================================================================================
+@unpublished{ssai_finrl_multisignal_2026,
+  title={{LLM} Semantic Factor Interfaces for Reinforcement Learning Portfolio Trading: Multi-Signal News Decomposition under Stochastic {RL}}},
+  author = {[REPLACE]},
+  year = {2026},
+  note = {Preprint. [REPLACE with HAL id once online, e.g. hal-XXXXXXXX]}
+}

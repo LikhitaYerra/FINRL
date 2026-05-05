@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\caption{Supervised forecasting baselines. Ridge models predict 5-day forward returns from price/technical features alone, price plus LLM sentiment or four-factor semantics, price plus lexical dense headlines (VADER; train-fit TF--IDF/SVD), optional FinBERT tone when available, or a semantic tilt. Ridge strength and the semantic tilt are selected on 2018 validation Sharpe, refit on 2013--2018, and evaluated once on 2019--2023 using the same daily top-10 portfolio rule as SFP.}
+\label{tab:supervised_forecasting}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Strategy} & \textbf{Tuned} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Sortino} & \textbf{MDD (\%)} & \textbf{Calmar} \\
+\midrule
+Supervised price-only & $\lambda=1e+01$ & 126.401 & 0.653 & 0.895 & -49.963 & 0.356 \\
+Supervised price + sentiment & $\lambda=1e+00$ & 122.243 & 0.641 & 0.877 & -49.915 & 0.348 \\
+Supervised price + VADER & $\lambda=1e-05$ & 134.842 & 0.674 & 0.925 & -50.157 & 0.372 \\
+Supervised price + TF-IDF/SVD & $\lambda=1e+01$ & 132.788 & 0.673 & 0.918 & -48.316 & 0.382 \\
+Supervised price + FinBERT & $\lambda=1e-05$ & 125.020 & 0.649 & 0.889 & -50.006 & 0.353 \\
+Supervised price + 4 semantic & $\lambda=1e-05$ & 111.842 & 0.614 & 0.835 & -50.141 & 0.324 \\
+Supervised price + semantic tilt & $\lambda=1e+01,\alpha=1$ & 133.894 & 0.674 & 0.929 & -49.963 & 0.371 \\
+Buy \& Hold (EW) & -- & 243.574 & 1.032 & 1.406 & -36.705 & 0.764 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

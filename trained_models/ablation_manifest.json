@@ -1,0 +1,150 @@
+{
+  "epochs": 30,
+  "variants": [
+    {
+      "variant": "full",
+      "checkpoint_suffix": "(default)",
+      "cmd": [
+        "mpirun",
+        "-np",
+        "4",
+        "/Users/likhitayerra/.pyenv/versions/3.11.6/bin/python3",
+        "train_cppo_multi_signal.py",
+        "--local_data",
+        "train_data_multi_signal_2013_2018.csv",
+        "--epochs",
+        "30",
+        "--cpu",
+        "4",
+        "--seed",
+        "0",
+        "--exp_name",
+        "dppo_ablation_full"
+      ]
+    },
+    {
+      "variant": "scalar_sentiment",
+      "checkpoint_suffix": "_scalar_sentiment",
+      "cmd": [
+        "mpirun",
+        "-np",
+        "4",
+        "/Users/likhitayerra/.pyenv/versions/3.11.6/bin/python3",
+        "train_cppo_multi_signal.py",
+        "--local_data",
+        "train_data_multi_signal_2013_2018.csv",
+        "--epochs",
+        "30",
+        "--cpu",
+        "4",
+        "--seed",
+        "0",
+        "--exp_name",
+        "dppo_ablation_scalar_sentiment",
+        "--scalar_sentiment_only",
+        "--save_suffix",
+        "_scalar_sentiment"
+      ]
+    },
+    {
+      "variant": "neutral_sentiment",
+      "checkpoint_suffix": "_neutral_sentiment",
+      "cmd": [
+        "mpirun",
+        "-np",
+        "4",
+        "/Users/likhitayerra/.pyenv/versions/3.11.6/bin/python3",
+        "train_cppo_multi_signal.py",
+        "--local_data",
+        "train_data_multi_signal_2013_2018.csv",
+        "--epochs",
+        "30",
+        "--cpu",
+        "4",
+        "--seed",
+        "0",
+        "--exp_name",
+        "dppo_ablation_neutral_sentiment",
+        "--neutral_llm_columns",
+        "llm_sentiment",
+        "--save_suffix",
+        "_neutral_sentiment"
+      ]
+    },
+    {
+      "variant": "neutral_risk",
+      "checkpoint_suffix": "_neutral_risk",
+      "cmd": [
+        "mpirun",
+        "-np",
+        "4",
+        "/Users/likhitayerra/.pyenv/versions/3.11.6/bin/python3",
+        "train_cppo_multi_signal.py",
+        "--local_data",
+        "train_data_multi_signal_2013_2018.csv",
+        "--epochs",
+        "30",
+        "--cpu",
+        "4",
+        "--seed",
+        "0",
+        "--exp_name",
+        "dppo_ablation_neutral_risk",
+        "--neutral_llm_columns",
+        "llm_risk",
+        "--save_suffix",
+        "_neutral_risk"
+      ]
+    },
+    {
+      "variant": "neutral_confidence",
+      "checkpoint_suffix": "_neutral_confidence",
+      "cmd": [
+        "mpirun",
+        "-np",
+        "4",
+        "/Users/likhitayerra/.pyenv/versions/3.11.6/bin/python3",
+        "train_cppo_multi_signal.py",
+        "--local_data",
+        "train_data_multi_signal_2013_2018.csv",
+        "--epochs",
+        "30",
+        "--cpu",
+        "4",
+        "--seed",
+        "0",
+        "--exp_name",
+        "dppo_ablation_neutral_confidence",
+        "--neutral_llm_columns",
+        "llm_confidence",
+        "--save_suffix",
+        "_neutral_confidence"
+      ]
+    },
+    {
+      "variant": "neutral_volatility_forecast",
+      "checkpoint_suffix": "_neutral_volatility_forecast",
+      "cmd": [
+        "mpirun",
+        "-np",
+        "4",
+        "/Users/likhitayerra/.pyenv/versions/3.11.6/bin/python3",
+        "train_cppo_multi_signal.py",
+        "--local_data",
+        "train_data_multi_signal_2013_2018.csv",
+        "--epochs",
+        "30",
+        "--cpu",
+        "4",
+        "--seed",
+        "0",
+        "--exp_name",
+        "dppo_ablation_neutral_volatility_forecast",
+        "--neutral_llm_columns",
+        "llm_volatility_forecast",
+        "--save_suffix",
+        "_neutral_volatility_forecast"
+      ]
+    }
+  ]
+}

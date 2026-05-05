@@ -7,10 +7,10 @@ CSV files are present so the frontend can still be developed / demoed.
 """
 
 import os
-import random
 import math
+import re
 from datetime import date, timedelta
-from typing import Optional
+from typing import Any, Optional
 
 import numpy as np
 import pandas as pd
@@ -138,32 +138,115 @@ def _load_multi_signal_csv(filename: str) -> Optional[pd.DataFrame]:
 # Public API
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _align_series_to_dates(series: pd.Series, dates: list[str]) -> list[float]:
+    """Reindex a date-indexed series to ``dates`` (str), forward/back-fill gaps."""
+    s = series.copy()
+    s.index = s.index.astype(str)
+    aligned = s.reindex(dates).ffill().bfill()
+    return [float(x) for x in aligned.tolist()]
+
+
+def _attach_multi_seed_mean(dates: list[str], agents: dict[str, list[float]]) -> tuple[dict[str, list[float]], bool]:
+    """
+    Add ``CPPO (5-seed μ)`` from ``backtest_results/multi_seed_portfolio.csv`` when
+    dates overlap (uses precomputed ``mean`` column if present).
+    """
+    path = _root("backtest_results/multi_seed_portfolio.csv")
+    if not os.path.exists(path) or len(dates) < 5:
+        return agents, False
+    try:
+        df = pd.read_csv(path)
+    except Exception:
+        return agents, False
+
+    if "date" not in df.columns:
+        return agents, False
+    df["date"] = df["date"].astype(str)
+
+    if "mean" in df.columns:
+        ser = df.set_index("date")["mean"].astype(float)
+    else:
+        seed_cols = sorted(
+            [c for c in df.columns if re.fullmatch(r"seed_\d+", str(c))],
+            key=lambda x: int(str(x).split("_")[1]),
+        )
+        if len(seed_cols) < 2:
+            return agents, False
+        ser = df.set_index("date")[seed_cols].mean(axis=1).astype(float)
+
+    mean_list = _align_series_to_dates(ser, dates)
+    if any(math.isnan(x) for x in mean_list):
+        return agents, False
+
+    out = dict(agents)
+    out["CPPO (5-seed μ)"] = mean_list
+    return out, True
+
+
+def _load_oos_portfolio() -> Optional[dict[str, Any]]:
+    """Optional true OOS window from ``oos_evaluation.py`` output."""
+    path = _root("backtest_results/oos_portfolio.csv")
+    if not os.path.exists(path):
+        return None
+    try:
+        df = pd.read_csv(path)
+    except Exception:
+        return None
+    need = {"date", "agent", "buy_hold"}
+    if not need.issubset(df.columns):
+        return None
+    df["date"] = df["date"].astype(str)
+    return {
+        "dates": df["date"].tolist(),
+        "agents": {
+            "CPPO (OOS)":      df["agent"].astype(float).tolist(),
+            "Buy & Hold (EW)": df["buy_hold"].astype(float).tolist(),
+        },
+    }
+
+
 def get_portfolio_data() -> dict:
-    """Return portfolio series for all available agents."""
+    """Return portfolio series for all available agents (+ meta + optional OOS block)."""
+    features: list[str] = []
+    primary_source: Optional[str] = None
+
     # Prefer real backtest data
     bt = _load_backtest_results()
     if bt is not None and len(bt) > 10:
-        dates  = bt["date"].tolist()
+        primary_source = "backtest_results/portfolio_value.csv"
+        dates = bt["date"].astype(str).tolist()
         agents = {
             "CPPO-MultiSignal": bt["cppo_value"].tolist(),
-            "Buy & Hold (EW)":  bt["bh_value"].tolist(),
+            "Buy & Hold (EW)": bt["bh_value"].tolist(),
         }
-        # Normalise series lengths
         n = len(dates)
         for k in list(agents.keys()):
             s = agents[k]
             if len(s) > n:
                 agents[k] = s[:n]
             elif len(s) < n:
-                agents[k] = s + [s[-1]] * (n - len(s))
-        return {"dates": dates, "agents": agents}
+                agents[k] = s + [float(s[-1])] * (n - len(s))
+
+        agents, ok_ms = _attach_multi_seed_mean(dates, agents)
+        if ok_ms:
+            features.append("multi_seed_mean")
+
+        oos = _load_oos_portfolio()
+        if oos:
+            features.append("oos_csv")
+
+        meta = {
+            "mode": "real",
+            "primary_source": primary_source,
+            "features": features,
+        }
+        return {"dates": dates, "agents": agents, "meta": meta, "oos": oos}
 
     # Fall back to synthetic demo data
     synth = _synthetic_portfolio()
-    dates = synth["dates"]
+    dates = list(map(str, synth["dates"]))
     agents = dict(synth["agents"])
 
-    # Try to overlay legacy CSV formats
     csv_map = {
         "Regime-Switch":    "regime_switch_portfolio.csv",
         "CPPO-MultiSignal": "results_cppo_multi_signal.csv",
@@ -173,18 +256,30 @@ def get_portfolio_data() -> dict:
         if df is not None and len(df) > 10:
             agents[agent_name] = df["account_value"].tolist()
             if "date" in df.columns and len(df["date"]) == len(dates):
-                dates = df["date"].tolist()
+                dates = df["date"].astype(str).tolist()
 
-    # Normalise series lengths
     n = len(dates)
     for k in list(agents.keys()):
         s = agents[k]
         if len(s) > n + 1:
-            agents[k] = s[:n + 1]
+            agents[k] = s[: n + 1]
         elif len(s) < n + 1:
-            agents[k] = s + [s[-1]] * (n + 1 - len(s))
+            agents[k] = s + [float(s[-1])] * (n + 1 - len(s))
 
-    return {"dates": dates, "agents": agents}
+    agents, ok_ms = _attach_multi_seed_mean(dates, agents)
+    if ok_ms:
+        features.append("multi_seed_mean")
+
+    oos = _load_oos_portfolio()
+    if oos:
+        features.append("oos_csv")
+
+    meta = {
+        "mode": "synthetic",
+        "primary_source": None,
+        "features": features,
+    }
+    return {"dates": dates, "agents": agents, "meta": meta, "oos": oos}
 
 
 def get_backtest_metrics() -> dict:

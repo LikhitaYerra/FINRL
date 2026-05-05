@@ -1,0 +1,65 @@
+PRIORITY 4: NEW TITLE & ABSTRACT (Reviewer-Suggested Reframing)
+
+========================================
+CURRENT TITLE (RL-focused):
+========================================
+LLM Semantic Factor Interfaces for Reinforcement Learning Portfolio Trading: 
+Multi-Signal News Decomposition under Stochastic RL
+
+========================================
+PROPOSED TITLE (SSAI-focused):
+========================================
+Semantic State Abstraction Interfaces for LLM-Augmented Portfolio Decisions: 
+Multi-Axis News Decomposition and RL Diagnostics
+
+========================================
+CURRENT ABSTRACT (first 3 sentences):
+========================================
+Many sequential decision systems occasionally observe sparse unstructured text:
+informative language arrives on a minority of steps, while most transitions
+carry only a neutral default. This paper empirically studies how such text
+should enter portfolio decision state---as dense features, a single scalar,
+or a small set of interpretable coordinates---and how to separate representation
+hypotheses from optimisation variance when a frozen LLM supplies the encoding.
+We instantiate Semantic State Abstraction Interfaces (SSAI): prompted maps...
+
+========================================
+PROPOSED ABSTRACT (revised first paragraph):
+========================================
+Many sequential decision systems occasionally observe sparse unstructured text: 
+informative language arrives on a minority of steps, while most transitions 
+carry only a neutral default. **This paper introduces Semantic State Abstraction 
+Interfaces (SSAI)—a framework for mapping sparse text into small sets of 
+interpretable, auditable coordinates with neutral defaults on no-news days—and 
+studies how such structured signals compare to dense neural encodings and scalar 
+sentiment baselines in portfolio decision-making.** We instantiate SSAI with K=4 
+axes (sentiment, risk, confidence, volatility forecast) on a FinRL-MultiSignal 
+US-equity panel (30 NASDAQ-100 names; FNSPID news; 2013–2018 train, 2019–2023 test) 
+and evaluate across direct factor portfolios (SFP/SRF/SCW), supervised ridge 
+forecasters, and two RL algorithms (DP-PPO, SAC) that share the same frozen LLM 
+encoder, allowing clean separation of representation quality from optimizer effects.
+
+**Rationale:** Foregrounds SSAI framework first, positions RL as diagnostic tool,
+matches what paper actually delivers (not an "RL trading" paper).
+
+========================================
+KEY CHANGES:
+========================================
+1. TITLE: Leads with "Semantic State Abstraction Interfaces" not "RL Portfolio Trading"
+2. ABSTRACT: Introduces SSAI in first paragraph as the framework contribution
+3. ABSTRACT: Positions RL as one of three evaluation contexts (not the main focus)
+4. Matches paper's actual framing: "RL as diagnostic, not performance claim"
+
+========================================
+REVIEWER QUOTE:
+========================================
+"The title foregrounds RL, but your own conclusion is that RL is 'diagnostic, 
+not a performance claim.' Consider a title that leads with the SSAI framework 
+and positions RL as a stress test... The abstract already does this correctly—
+the title should match it."
+
+========================================
+RECOMMENDATION:
+========================================
+Use PROPOSED TITLE and integrate PROPOSED ABSTRACT opening paragraph.
+This costs zero compute and reduces title/content mismatch that confuses reviewers.

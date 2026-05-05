@@ -55,22 +55,42 @@ def health() -> dict:
 @app.get("/api/portfolio")
 def portfolio(
     normalise: bool = Query(True, description="Normalise all series to start at 1.0"),
-) -> dict:
+) -> dict[str, Any]:
     """
-    Returns portfolio value series for each agent over 2019–2023.
+    Returns portfolio value series for each agent (in-sample 2019–2023 by default).
+
+    When available (see ``meta.features``):
+      - ``oos``: separate hold-out window from ``oos_portfolio.csv``
+      - ``CPPO (5-seed μ)``: row mean from ``multi_seed_portfolio.csv``
+
+    Response includes ``meta``: ``{mode, primary_source, features}``.
     """
     data = get_portfolio_data()
     dates: list[str] = data["dates"]
     agents: dict[str, list[float]] = data["agents"]
+    meta: dict[str, Any] = data.get("meta") or {"mode": "unknown", "primary_source": None, "features": []}
+    oos_block: dict[str, Any] | None = data.get("oos")
+
+    def _norm(a: dict[str, list[float]]) -> dict[str, list[float]]:
+        out: dict[str, list[float]] = {}
+        for name, series in a.items():
+            base = series[0] if series and series[0] != 0 else 1.0
+            out[name] = [round(v / base, 6) for v in series]
+        return out
 
     if normalise:
-        normalised: dict[str, list[float]] = {}
-        for name, series in agents.items():
-            base = series[0] if series[0] != 0 else 1.0
-            normalised[name] = [round(v / base, 6) for v in series]
-        return {"dates": dates, "agents": normalised}
+        payload: dict[str, Any] = {"dates": dates, "agents": _norm(agents), "meta": meta}
+        if oos_block:
+            payload["oos"] = {
+                "dates": oos_block["dates"],
+                "agents": _norm(oos_block["agents"]),
+            }
+        return payload
 
-    return {"dates": dates, "agents": agents}
+    out: dict[str, Any] = {"dates": dates, "agents": agents, "meta": meta}
+    if oos_block:
+        out["oos"] = oos_block
+    return out
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -91,7 +111,11 @@ def metrics() -> list[dict]:
     data = get_portfolio_data()
     agents = data["agents"]
 
-    benchmark = agents.get("NASDAQ-100 (QQQ)", list(agents.values())[0])
+    benchmark = (
+        agents.get("Buy & Hold (EW)")
+        or agents.get("NASDAQ-100 (QQQ)")
+        or next(iter(agents.values()))
+    )
 
     result: list[dict] = []
     for name, series in agents.items():

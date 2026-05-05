@@ -1,0 +1,13 @@
+\begin{table}[htbp]
+\centering
+\caption{Multi-seed robustness (21 seeds, 2019--2023). Mean $\pm$ std across seeds for cumulative return and Sharpe. \textit{Neutral eval} masks all LLM coordinates to neutral using the same checkpoints.}
+\label{tab:seed_robust}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Variant} & \textbf{CR (\%)} & \textbf{Sharpe} \\
+\midrule
+DP-PPO (full signals) & $195.04 \pm 44.18$ & $0.920 \pm 0.096$ \\
+DP-PPO (neutral eval) & $190.93 \pm 42.57$ & $0.907 \pm 0.094$ \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -2,25 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
 @layer base {
   body {
-    @apply bg-gray-950 text-gray-100 antialiased;
+    @apply bg-zinc-950 text-zinc-200 antialiased font-sans text-[15px] leading-relaxed;
   }
-  ::-webkit-scrollbar { @apply w-1.5 h-1.5; }
-  ::-webkit-scrollbar-track { @apply bg-gray-900; }
-  ::-webkit-scrollbar-thumb { @apply bg-gray-700 rounded-full; }
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-700 rounded-full hover:bg-zinc-600;
+  }
 }
 
 @layer components {
   .card {
-    @apply bg-gray-900 border border-gray-800 rounded-2xl p-5;
+    @apply rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 sm:p-6;
   }
+
+  .stat-tile {
+    @apply rounded-xl border border-zinc-800 bg-zinc-900/50 p-4;
+  }
+
+  .stat-tile:hover {
+    @apply border-zinc-700 bg-zinc-900/80;
+  }
+
   .badge-bull {
-    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full
-           text-xs font-semibold bg-emerald-900/60 text-emerald-300 border border-emerald-700/50;
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-emerald-950 text-emerald-400 border border-emerald-800;
   }
+
   .badge-bear {
-    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full
-           text-xs font-semibold bg-red-900/60 text-red-300 border border-red-700/50;
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-rose-950 text-rose-400 border border-rose-900;
   }
 }

@@ -3,16 +3,17 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"DM Sans"', "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+      },
       colors: {
         brand: {
-          50:  "#eff6ff",
-          500: "#3b82f6",
-          700: "#1d4ed8",
-          900: "#1e3a8a",
+          500: "#71717a",
+          600: "#52525b",
         },
       },
     },
   },
   plugins: [],
-}
-
+};

@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{%
+  Factor portfolio comparison (2019--2023, 30 tickers, daily top-10 rebalancing). 
+  PC1-SFP uses first principal component of four semantic axes (83.4\% explained variance); 
+  FinBERT-SFP uses ProsusAI/finbert sentiment scores as ranking signal; 
+  4-axis SSAI (SFP) uses validated semantic factor weights from Table~\ref{tab:semantic_factor_portfolio}.
+}
+\label{tab:factor_comparison}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Strategy} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Sortino} & \textbf{MDD (\%)} \\
+\midrule
+PC1-SFP (data-driven factor) & 433.6 & 1.256 & 1.687 & $-35.6$ \\
+FinBERT-SFP (dense encoding) & 386.3 & 1.206 & 1.659 & $-35.6$ \\
+4-axis SSAI (SFP) & 307.2 & 1.067 & 1.461 & $-35.6$ \\
+Buy \& Hold (equal-weight) & 243.6 & 1.032 & 1.406 & $-36.7$ \\
+\bottomrule
+\end{tabular}
+\end{table}

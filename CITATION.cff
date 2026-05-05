@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+title: FinRL-DeepSeek
+message: >-
+  If you use this repository, please cite the associated preprint
+  (see identifiers / repository README).
+authors:
+  - name: FinRL-DeepSeek authors
+repository-code: 'https://github.com/benstaf/FinRL_DeepSeek'
+url: 'https://arxiv.org/abs/2502.07393'
+preferred-citation:
+  type: article
+  title: 'FinRL-DeepSeek: LLM-infused risk-sensitive reinforcement learning for trading agents'
+  year: 2025
+  url: 'https://arxiv.org/abs/2502.07393'

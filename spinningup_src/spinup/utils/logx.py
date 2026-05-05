@@ -9,15 +9,30 @@ import json
 import joblib
 import shutil
 import numpy as np
-try:
-    import tensorflow as tf
-except Exception:
-    tf = None
 import torch
 import os.path as osp, time, atexit, os
 import warnings
 from spinup.utils.mpi_tools import proc_id, mpi_statistics_scalar
 from spinup.utils.serialization_utils import convert_json
+
+_TF_UNAVAILABLE = object()
+_tf_lazy = None
+
+
+def _tensorflow():
+    """Import TensorFlow only when TF checkpoint helpers are used (PyTorch-only runs skip this)."""
+    global _tf_lazy
+    if _tf_lazy is _TF_UNAVAILABLE:
+        return None
+    if _tf_lazy is None:
+        try:
+            import tensorflow as tf_mod
+
+            _tf_lazy = tf_mod
+        except Exception:
+            _tf_lazy = _TF_UNAVAILABLE
+            return None
+    return _tf_lazy
 
 color2num = dict(
     gray=30,
@@ -59,6 +74,7 @@ def restore_tf_graph(sess, fpath):
         A dictionary mapping from keys to tensors in the computation graph
         loaded from ``fpath``. 
     """
+    tf = _tensorflow()
     if tf is None:
         raise RuntimeError("TensorFlow not available; cannot restore_tf_graph.")
     tf.saved_model.loader.load(
@@ -232,6 +248,7 @@ class Logger:
                 # simple_save refuses to be useful if fpath already exists,
                 # so just delete fpath if it's there.
                 shutil.rmtree(fpath)
+            tf = _tensorflow()
             if tf is not None:
                 tf.saved_model.simple_save(export_dir=fpath, **self.tf_saver_elements)
             joblib.dump(self.tf_saver_info, osp.join(fpath, 'model_info.pkl'))

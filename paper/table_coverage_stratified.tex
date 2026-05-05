@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{Coverage-stratified SFP vs.\ equal-weight B\&H (2019--2023). Tickers split into thirds by non-neutral signal coverage fraction (Low $<$5\%: MSFT/META/ISRG/COST/INTC/AMZN/AAPL/AMD/PANW/SNPS; Mid 5--15\%: INTU/KLAC/ORCL/TXN/REGN/MCHP/LRCX/CDNS/TSLA/ADBE; High $>$15\%: MRVL/AMAT/NFLX/ADI/QCOM/ASML/MU/NVDA/AVGO/GOOGL). Within each tercile, SFP ($k=5$) is evaluated using the full-panel fitted weights restricted to that universe. \textbf{SFP underperforms within-tercile B\&H in all three groups}, indicating that the full-portfolio outperformance (307\% vs.\ 244\% B\&H over all 30 stocks) is substantially a cross-universe selection effect---SFP picks mid-coverage names that happened to outperform the full equal-weight basket---rather than purely a within-coverage-tier signal quality advantage.}
+\label{tab:coverage_stratified}
+\begin{tabular}{llrrrrr}
+\toprule
+\textbf{Coverage} & \textbf{Strategy} & \textbf{$N$} & \textbf{$k$} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{MDD (\%)} \\
+\midrule
+Low ($<$5\%) & SFP & 10 & 5 & 248.6 & 1.010 & -42.0 \\
+Low ($<$5\%) & B\&H & 10 & -- & 300.0 & 1.134 & -39.4 \\
+\midrule
+Mid (5--15\%) & SFP & 10 & 5 & 361.9 & 1.073 & -42.8 \\
+Mid (5--15\%) & B\&H & 10 & -- & 379.6 & 1.172 & -33.3 \\
+\midrule
+High ($>$15\%) & SFP & 10 & 5 & 232.6 & 0.885 & -40.1 \\
+High ($>$15\%) & B\&H & 10 & -- & 352.1 & 1.049 & -46.6 \\
+\bottomrule
+\end{tabular}
+\end{table}

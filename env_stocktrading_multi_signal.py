@@ -34,12 +34,15 @@ import numpy as np
 import pandas as pd
 from gymnasium import spaces
 from gymnasium.utils import seeding
-try:
-    from stable_baselines3.common.vec_env import DummyVecEnv
-except Exception:
-    DummyVecEnv = None
 
 matplotlib.use("Agg")
+
+
+def _dummy_vec_env():
+    """Lazy import — avoids pulling SB3 (and TensorBoard/TF paths) when unused."""
+    from stable_baselines3.common.vec_env import DummyVecEnv
+
+    return DummyVecEnv
 
 _SIGNAL_COLS = [
     "llm_sentiment",
@@ -542,6 +545,7 @@ class StockTradingEnv(gym.Env):
         return [seed]
 
     def get_sb_env(self):
+        DummyVecEnv = _dummy_vec_env()
         e = DummyVecEnv([lambda: self])
         obs = e.reset()
         return e, obs

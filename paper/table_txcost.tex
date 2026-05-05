@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\centering
+\caption{Transaction-cost sensitivity for the released DP-PPO checkpoint. Buy-and-hold has no ongoing rebalance cost in this sweep; DP-PPO remains below the passive sleeve across tested cost levels.}
+\label{tab:txcost}
+\begin{tabular}{rrrrrr}
+\toprule
+\textbf{Cost (\%)} & \textbf{DP-PPO CR} & \textbf{B\&H CR} & \textbf{$\Delta$ CR} & \textbf{Sharpe} & \textbf{MDD (\%)} \\
+\midrule
+0.05 & 188.07 & 243.57 & -55.51 & 0.908 & -42.81 \\
+0.10 & 190.43 & 243.57 & -53.14 & 0.917 & -42.54 \\
+0.20 & 185.72 & 243.57 & -57.86 & 0.899 & -43.49 \\
+1.00 & 165.65 & 243.57 & -77.93 & 0.840 & -44.85 \\
+2.00 & 141.43 & 243.57 & -102.14 & 0.769 & -45.57 \\
+\bottomrule
+\end{tabular}
+\end{table}

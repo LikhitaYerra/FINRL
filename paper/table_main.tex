@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Main Strategy Comparison (2019–2023)}
+\label{tab:main_results}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Strategy} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Sortino} & \textbf{MDD (\%)} & \textbf{Rachev} & \textbf{CVaR-5\%} & \textbf{Calmar} \\
+\midrule
+DP-PPO (all signals) & 190.431 & 0.917 & 1.216 & -42.540 & 0.911 & -4.169 & 0.560 \\
+Momentum (top-10) & 117.566 & 0.664 & 0.922 & -51.027 & 0.971 & -4.406 & 0.330 \\
+Equal-Vol (risk parity) & 230.661 & 0.989 & 1.315 & -38.523 & 0.978 & -4.110 & 0.703 \\
+Buy \& Hold (EW) & 243.574 & 1.032 & 1.406 & -36.705 & 0.969 & -4.008 & 0.764 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

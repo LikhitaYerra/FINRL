@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\caption{Semantic Factor Portfolio variants. Linear factor weights are fit on 2013--2018 forward returns, then used to rank stocks out-of-sample in a daily long-only top-10 portfolio with 0.1\% transaction costs. SRF residualizes non-sentiment axes against sentiment. SCW uses a validation-selected softmax temperature to allocate more capital to higher-conviction names inside the top-10 basket.}
+\label{tab:semantic_factor_portfolio}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Strategy} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Sortino} & \textbf{MDD (\%)} & \textbf{Calmar} \\
+\midrule
+SFP (4 factors) & 307.199 & 1.067 & 1.430 & -35.643 & 0.911 \\
+SFP (sentiment only) & 291.893 & 1.050 & 1.433 & -35.643 & 0.883 \\
+SRF (sentiment + residual axes) & 307.199 & 1.067 & 1.430 & -35.643 & 0.911 \\
+SCW (conviction-weighted) & 314.075 & 1.067 & 1.460 & -35.643 & 0.924 \\
+Buy \& Hold (EW) & 243.574 & 1.032 & 1.406 & -36.705 & 0.764 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

@@ -10,9 +10,22 @@ async function get<T>(path: string, params?: Record<string, string | number | bo
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
+export interface PortfolioMeta {
+  mode: "real" | "synthetic" | "unknown";
+  primary_source: string | null;
+  features: string[];
+}
+
+export interface OosPortfolioBlock {
+  dates: string[];
+  agents: Record<string, number[]>;
+}
+
 export interface PortfolioData {
   dates: string[];
   agents: Record<string, number[]>;
+  meta?: PortfolioMeta;
+  oos?: OosPortfolioBlock | null;
 }
 
 export interface AgentMetrics {
@@ -71,7 +84,8 @@ export interface BacktestResults {
 
 // ─── Query functions ──────────────────────────────────────────────────────────
 
-export const fetchPortfolio     = (normalise = true) => get<PortfolioData>("/api/portfolio", { normalise });
+export const fetchPortfolio = (normalise = true) =>
+  get<PortfolioData>("/api/portfolio", { normalise });
 export const fetchMetrics       = ()                  => get<AgentMetrics[]>("/api/metrics");
 export const fetchRegime        = ()                  => get<RegimePoint[]>("/api/regime");
 export const fetchRegimeSummary = ()                  => get<RegimeSummary>("/api/regime/summary");

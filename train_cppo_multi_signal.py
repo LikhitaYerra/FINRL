@@ -26,10 +26,17 @@ from torch.optim import Adam
 from gymnasium.spaces import Box, Discrete
 
 from datasets import load_dataset
+import os
 import pandas as pd
 
-from finrl.config import INDICATORS, TRAINED_MODEL_DIR, RESULTS_DIR
-from finrl.main import check_and_make_directories
+INDICATORS = ["macd","boll_ub","boll_lb","rsi_30","cci_30","dx_30","close_30_sma","close_60_sma"]
+TRAINED_MODEL_DIR = "trained_models"
+RESULTS_DIR = "results"
+
+
+def check_and_make_directories(paths):
+    for path in paths:
+        os.makedirs(path, exist_ok=True)
 from env_stocktrading_multi_signal import StockTradingEnv
 
 import spinup.algos.pytorch.ppo.core as core
@@ -83,6 +90,35 @@ def load_train_data(hf_dataset: str = "benstaf/nasdaq_2013_2023",
             train[col].fillna(default, inplace=True)
 
     return train
+
+
+def apply_training_signal_overrides(
+    train: pd.DataFrame,
+    *,
+    neutral_llm_columns: list[str] | None = None,
+    scalar_sentiment_only: bool = False,
+) -> pd.DataFrame:
+    """
+    Training-time signal controls for causal ablations.
+
+    - neutral_llm_columns: force listed columns to neutral (3.0) for full train period.
+    - scalar_sentiment_only: keep only sentiment varying; other LLM axes neutral.
+    """
+    df = train
+    if scalar_sentiment_only:
+        for col in ("llm_risk", "llm_confidence", "llm_volatility_forecast"):
+            if col in df.columns:
+                df[col] = 3.0
+    if neutral_llm_columns:
+        for col in neutral_llm_columns:
+            c = col.strip()
+            if not c:
+                continue
+            if c not in df.columns:
+                print(f"[WARN] neutral_llm_columns: unknown column {c!r}, skipping")
+                continue
+            df[c] = 3.0
+    return df
 
 
 # --------------------------------------------------------------------------- #
@@ -501,6 +537,24 @@ def main():
     parser.add_argument("--local_data", type=str, default=None,
                         help="Path to local train CSV (skips HuggingFace download)")
     parser.add_argument("--drawdown_penalty", type=float, default=0.1)
+    parser.add_argument(
+        "--neutral_llm_columns",
+        type=str,
+        default="",
+        help="Comma-separated LLM columns forced to neutral (3.0) during training "
+             "(train-time ablation). Example: llm_sentiment,llm_risk",
+    )
+    parser.add_argument(
+        "--scalar_sentiment_only",
+        action="store_true",
+        help="Training-time baseline: only llm_sentiment varies; other LLM axes fixed at 3.0.",
+    )
+    parser.add_argument(
+        "--save_suffix",
+        type=str,
+        default="",
+        help="Optional suffix before .pth (e.g. '_scalar_sentiment'). Default filename unchanged when empty.",
+    )
     # Absorb Jupyter / MPI pass-through args
     parser.add_argument("-f", "--file", type=str)
     parser.add_argument("extra_args", nargs=argparse.REMAINDER)
@@ -508,6 +562,20 @@ def main():
 
     # ---- Load data ----
     train = load_train_data(local_file=args.local_data)
+
+    neutral_cols = [c.strip() for c in args.neutral_llm_columns.split(",") if c.strip()]
+    train = apply_training_signal_overrides(
+        train,
+        neutral_llm_columns=neutral_cols if neutral_cols else None,
+        scalar_sentiment_only=args.scalar_sentiment_only,
+    )
+    if neutral_cols or args.scalar_sentiment_only:
+        tag = []
+        if args.scalar_sentiment_only:
+            tag.append("scalar_sentiment")
+        if neutral_cols:
+            tag.append("neutral_" + "_".join(neutral_cols))
+        print("[train] Signal overrides:", ", ".join(tag) if tag else "(none)")
 
     stock_dimension = len(train.tic.unique())
     state_space = 1 + 2 * stock_dimension + (LLM_DIM + len(INDICATORS)) * stock_dimension
@@ -547,10 +615,10 @@ def main():
         logger_kwargs=logger_kwargs,
     )
 
-    model_path = (
-        TRAINED_MODEL_DIR
-        + f"/agent_cppo_multi_signal_{args.epochs}_epochs.pth"
-    )
+    suf = args.save_suffix.strip().replace(" ", "_").replace("/", "_")
+    if suf and not suf.startswith("_"):
+        suf = "_" + suf
+    model_path = TRAINED_MODEL_DIR + f"/agent_cppo_multi_signal_{args.epochs}_epochs{suf}.pth"
     torch.save(trained_ac.state_dict(), model_path)
     print(f"Training finished — model saved to {model_path}")
 

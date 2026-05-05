@@ -1,5 +1,7 @@
 **Status:** Maintenance (expect bug fixes and minor updates)
 
+**FinRL-DeepSeek fork:** `setup.py` targets **PyTorch + mpi4py + gymnasium** only (no TensorFlow 1.x). TensorFlow is loaded lazily inside `spinup.utils.logx` if you use TF checkpoint helpers. Optional extras: `pip install -e .[viz]` (seaborn plots), `[dev]` (pytest, ipython).
+
 Welcome to Spinning Up in Deep RL! 
 ==================================
 

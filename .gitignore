@@ -2,6 +2,7 @@
 
 # Python
 __pycache__/
+*.egg-info/
 *.py[cod]
 *.pyo
 .pytest_cache/
@@ -39,11 +40,14 @@ models/
 # Jupyter
 .ipynb_checkpoints/
 
-# Local media/artifacts
+# Local media — ignore arbitrary screenshots; track paper/figures for LaTeX builds
 *.jpg
 *.jpeg
 *.png
 *.gif
+!paper/
+!paper/figures/
+!paper/figures/**
 *.mp4
 .git_nested_backup/
 spinningup_src/docs/images/

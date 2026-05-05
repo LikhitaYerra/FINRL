@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Signal Ablation Study — DP-PPO Variants}
+\label{tab:ablation}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Strategy} & \textbf{CR (\%)} & \textbf{Sharpe} & \textbf{Rachev} & \textbf{MDD (\%)} \\
+\midrule
+DP-PPO (all signals) & 190.431 & 0.917 & 0.911 & -42.540 \\
+DP-PPO (no sentiment) & 191.113 & 0.913 & 0.917 & -42.936 \\
+DP-PPO (no risk) & 190.787 & 0.915 & 0.915 & -42.705 \\
+DP-PPO (no confidence) & 185.075 & 0.893 & 0.920 & -43.176 \\
+DP-PPO (no volatility\_forecast) & 186.568 & 0.896 & 0.919 & -43.780 \\
+DP-PPO (neutral) & 196.754 & 0.926 & 0.921 & -43.541 \\
+\bottomrule
+\end{tabular}
+\end{table}
